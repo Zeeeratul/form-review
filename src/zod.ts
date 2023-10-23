@@ -15,6 +15,12 @@ export const collectibleSchema = z.object({
 
   // OPTIONAL
   extension: z.string().min(1),
+
+  graded: z.boolean(),
+
+  // check if this value is set when graded === true
+  // else ignore
+  note: z.string(),
 });
 
 export const collectibleDefault: z.infer<typeof collectibleSchema> = {
@@ -22,4 +28,6 @@ export const collectibleDefault: z.infer<typeof collectibleSchema> = {
   category: "",
   language: "",
   extension: "",
+  graded: false,
+  note: "",
 };

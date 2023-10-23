@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "./components/ui/input";
 import { collectibleDefault, collectibleSchema } from "./zod";
+import { Separator } from "./components/ui/separator";
+import { Switch } from "@radix-ui/react-switch";
 
 const formSchema = z.object({
   userId: z.string().min(1),
@@ -59,7 +61,8 @@ function ComplexForm() {
         />
 
         {fields.map((field, index) => (
-          <div className="flex flex-row justify-between gap-4">
+          <div className="flex flex-col justify-between gap-4">
+            <p className="text-xl font-semibold">Item #{index + 1}</p>
             <FormField
               control={form.control}
               name={`collectibles.${index}.category`}
@@ -101,6 +104,40 @@ function ComplexForm() {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name={`collectibles.${index}.graded`}
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-base">Graded</FormLabel>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name={`collectibles.${index}.note`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Note</FormLabel>
+                  <FormControl>
+                    <Input placeholder="" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Separator className="my-4" />
           </div>
         ))}
 

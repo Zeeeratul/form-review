@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "./components/ui/input";
 import { collectibleSchema } from "./zod";
+import { Switch } from "./components/ui/switch";
 
 function EasyForm() {
   const form = useForm<z.infer<typeof collectibleSchema>>({
@@ -103,6 +104,38 @@ function EasyForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Extension</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="graded"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+              <div className="space-y-0.5">
+                <FormLabel className="text-base">Graded</FormLabel>
+              </div>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="note"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Note</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
